@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const jade = require('jade');
 const bodyParser = require('body-parser');
-var students = require('./controllers/student');
 
 const app = express();
 
@@ -13,7 +12,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({extended:false}));
 
+var students = require('./controllers/student');
+var faculty = require('./controllers/faculties');
+
 app.use('/students', students);
+app.use('/faculties', faculty);
+
 
 app.get('', (req, res) => {
     res.render('admin/home', { title: 'Options'});
