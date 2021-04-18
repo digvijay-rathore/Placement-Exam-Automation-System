@@ -15,6 +15,10 @@ var default_username = "User Name";
 
 var default_courseid = "Course Code";
 
+router.get('/home', function(req, res) {
+	res.render('students/home', { title: 'Student Home Page', student: default_student});
+});
+
 router.get('/new', (req, res) => {
     res.render('students/new', { title: 'Add New Student', student: default_student});
 });
