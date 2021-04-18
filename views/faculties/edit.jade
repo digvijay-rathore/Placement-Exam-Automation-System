@@ -22,7 +22,7 @@ html(lang='en')
                 strong Edit Faculty
           .row
             .col-sm-3
-              a.btn.btn-info(href='/admin/home', role='button') Go Back!
+              a.btn.btn-info(href='/', role='button') Go Back!
             .col-sm-6.form-box
               .form-top
                 .form-top-left
@@ -32,13 +32,13 @@ html(lang='en')
                 form.login-form(role='form', action='update', method='post')
                   .form-group
                     label.sr-only(for='form-password') Name
-                    input#form-password.form-password.form-control(type='text', name='', value=student.name)
+                    input#form-password.form-password.form-control(type='text', name='name', value=faculty.name)
                   .form-group
                     label.sr-only(for='form-password') Username
-                    input#form-password.form-password.form-control(type='text', name='', value=student.username)
+                    input#form-password.form-password.form-control(type='text', name='username', value=faculty.username)
                   .form-group
                     label.sr-only(for='form-password') Password
-                    input#form-password.form-password.form-control(type='password', name='password', placeholder='Password...')
+                    input#form-password.form-password.form-control(type='password', name='password', value=faculty.password)
                   button.btn(type='submit') Edit
             .col-sm-3
               a.btn.btn-info(href='../admin/logout', role='button') Logout!
