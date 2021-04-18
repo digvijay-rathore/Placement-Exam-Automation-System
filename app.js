@@ -14,9 +14,12 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 var students = require('./controllers/student');
 var faculty = require('./controllers/faculties');
+var courses = require('./controllers/courses');
+
 
 app.use('/students', students);
 app.use('/faculties', faculty);
+app.use('/courses', courses);
 
 
 app.get('', (req, res) => {
