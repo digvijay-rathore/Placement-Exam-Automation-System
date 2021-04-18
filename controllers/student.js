@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Student = require('../models/students');
+const Course = require('../models/course');
 
 var default_student = {
     username: "Your LDAP ID",
@@ -106,4 +107,103 @@ router.get('/register_form', function(req, res) {
 	courseid: default_courseid});
 });
 
+
+router.post('/register', function(req, res) {
+	var username = req.body.username;
+	var course_code = req.body.courseid;
+
+	Student.getByUserName(username, function(err,doc) 
+	{
+		if(err)
+			res.send("Some error occured");
+		else if(doc)
+		{
+			Course.getBycourseid(course_code, function(err,doc)
+			{
+				if(err)
+					res.send("Some error occured");
+				else if(doc)
+				{
+					Student.getBycourseid(username, course_code, function(err, doc) 
+					{
+						if(err)
+							res.send("Some error occured");
+						else if(doc)
+							{res.redirect('/students/register_form');}
+						else
+						{
+							Student.register(username, course_code, function(err, doc)
+							{
+								if(err)
+									res.send("Some error occured");
+								else if(doc)
+									res.redirect('/');
+
+							})	
+						}						
+					})
+				}
+				else
+					res.redirect('/students/register_form');
+					
+			})
+		}
+		else
+			res.redirect('/students/register_form');
+		
+	})
+});
+
+router.get('/deregister_form', function(req, res) {
+	res.render('students/deregister', { title: "Deregister", username: default_username,
+	courseid: default_courseid});
+});
+
+router.post('/deregister', function(req, res) {
+	// TO DO: Ensure that the student and course exists
+	// TO DO: Add failure cases
+	var username = req.body.username;
+	var course_code = req.body.courseid;
+
+	Student.getByUserName(username, function(err,doc) 
+	{
+		if(err)
+			res.send("Some error occured");
+		else if(doc)
+		{
+			Course.getBycourseid(course_code, function(err,doc)
+			{
+				if(err)
+					res.send("Some error occured");
+				else if(doc)
+				{
+					Student.getBycourseid(username, course_code, function(err, doc) 
+					{
+						if(err)
+							res.send("Some error occured");
+						else if(doc)
+						{
+							Student.deregister(username, course_code, function(err, doc)
+							{
+								if(err)
+									res.send("Some error occured");
+								else if(doc)
+									res.redirect('/');
+							})
+						}
+						else
+						{
+							res.redirect('/students/register_form');
+						}
+
+					})
+				}
+				else
+					res.redirect('/students/register_form');		
+			})
+		}
+		else
+			res.redirect('/students/register_form');
+	})
+});
 module.exports = router;

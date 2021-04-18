@@ -30,7 +30,26 @@ update: function(prevusername, faculty, cb) {
 // Remove an existing faculty by username
 remove: function(username, cb) {
   faculty_collection.remove({username: username}, cb);
-}
+},
+
+assign: function(username, course_code, cb) {
+  faculty_collection.update(
+     { username: username },
+     { $addToSet: { course_list: { $each: [ course_code] } } }, cb);
+  },
+  
+  unassign: function(username, course_code, cb) 
+  {
+  faculty_collection.update(
+    {username: username},
+    { $pull: {  course_list: course_code } },cb);
+  },
+  
+  getBycourseid: function(username,course_code, cb) {
+    faculty_collection.findOne({username: username, course_list :course_code}, {}, cb);
+  }
+  
+  
 
 };
 
