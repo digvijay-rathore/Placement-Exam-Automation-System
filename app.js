@@ -17,12 +17,16 @@ var students = require('./controllers/student');
 var faculty = require('./controllers/faculties');
 var courses = require('./controllers/courses');
 var admin = require('./controllers/admin');
+var take_exam = require('./controllers/take_exam_controller');
+
 
 app.use('/', index);
 app.use('/students', students);
 app.use('/faculties', faculty);
 app.use('/courses', courses);
 app.use('/admin', admin);
+app.use('/take_exam', take_exam);
+
 
 
 
