@@ -30,13 +30,13 @@ html(lang='en')
                     center &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Login As:
               .form-bottom
                 center
-                  a.btn.btn-info(href='/admin/home', role='button') Admin
+                  a.btn.btn-info(href='/login?usertype=admin', role='button') Admin
                   br
                   br
-                  a.btn.btn-info(href='/students/home', role='button') Student
+                  a.btn.btn-info(href='/login?usertype=student', role='button') Student
                   br
                   br
-                  a.btn.btn-info(href='/faculties/home', role='button') Faculty
+                  a.btn.btn-info(href='/login?usertype=faculty', role='button') Faculty
     // Javascript
     script(src='/stylesheets/assets/js/jquery-1.11.1.min.js')
     script(src='/stylesheets/assets/bootstrap/js/bootstrap.min.js')
