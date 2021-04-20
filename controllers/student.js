@@ -15,15 +15,15 @@ var default_username = "User Name";
 
 var default_courseid = "Course Code";
 
-router.get('/home', function(req, res) {
+router.get('/home', isLoggedInAsStudent, function(req, res) {
 	res.render('students/home', { title: 'Student Home Page', student: default_student});
 });
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
     res.render('students/new', { title: 'Add New Student', student: default_student});
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', isLoggedIn, (req, res) => {
 	var student = {
 	username: req.body.username,
 	password: req.body.password,
@@ -47,11 +47,11 @@ router.post('/create', (req, res) => {
 	})
 });
 
-router.get('/get_username_edit', function(req, res) {
+router.get('/get_username_edit', isLoggedIn, function(req, res) {
 	res.render('students/get_username_edit', { title: "Get Username", username: default_username});
 });
 
-router.get('/edit', function(req,res) {
+router.get('/edit', isLoggedIn, function(req,res) {
 	var username = req.query.username;
     Student.getByUserName(username, function(err,doc) {
 		if(err)
@@ -66,7 +66,7 @@ router.get('/edit', function(req,res) {
 	});
 });
 
-router.post('/update', function(req, res) {
+router.post('/update', isLoggedIn, function(req, res) {
 	var student = {
 	username: req.body.username,
 	password: req.body.password,
@@ -83,11 +83,11 @@ router.post('/update', function(req, res) {
 	});
 });
 
-router.get('/get_username_delete', function(req, res) {
+router.get('/get_username_delete', isLoggedIn, function(req, res) {
 	res.render('students/get_username_delete', { title: "Get Username", username: default_username});
 });
 
-router.post('/delete', function(req, res) {
+router.post('/delete', isLoggedIn, function(req, res) {
 	var username = req.body.username;
 
 	Student.getByUserName(username, function(err,doc) {
@@ -106,13 +106,13 @@ router.post('/delete', function(req, res) {
 	})
 });
 
-router.get('/register_form', function(req, res) {
+router.get('/register_form', isLoggedIn, function(req, res) {
 	res.render('students/register', { title: "Register", username: default_username,
 	courseid: default_courseid});
 });
 
 
-router.post('/register', function(req, res) {
+router.post('/register', isLoggedIn, function(req, res) {
 	var username = req.body.username;
 	var course_code = req.body.courseid;
 
@@ -158,12 +158,12 @@ router.post('/register', function(req, res) {
 	})
 });
 
-router.get('/deregister_form', function(req, res) {
+router.get('/deregister_form', isLoggedIn, function(req, res) {
 	res.render('students/deregister', { title: "Deregister", username: default_username,
 	courseid: default_courseid});
 });
 
-router.post('/deregister', function(req, res) {
+router.post('/deregister', isLoggedIn, function(req, res) {
 	// TO DO: Ensure that the student and course exists
 	// TO DO: Add failure cases
 	var username = req.body.username;
@@ -210,4 +210,25 @@ router.post('/deregister', function(req, res) {
 			res.redirect('/students/register_form');
 	})
 });
+
 module.exports = router;
+
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated()&&req.user.usertype=='admin')
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
+function isLoggedInAsStudent(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated()&&req.user.usertype=='student')
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}

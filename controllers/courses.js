@@ -9,11 +9,11 @@ var default_course = {
 	  coursename: "coursename"
 	};
 	
-router.get('/new', function(req, res) {
+router.get('/new', isLoggedIn, function(req, res) {
 	res.render('courses/new', { title: 'Add New course', course: default_course});
 });
 
-router.post('/create', function(req, res) {
+router.post('/create', isLoggedIn, function(req, res) {
 	var course = {
 	  courseid: req.body.courseid,
 	  coursename: req.body.coursename
@@ -35,11 +35,11 @@ router.post('/create', function(req, res) {
 	})
 });
 
-router.get('/get_courseid_edit', function(req, res) {
+router.get('/get_courseid_edit', isLoggedIn, function(req, res) {
 	res.render('courses/get_courseid_edit', { title: "Get course ID", courseid: default_courseid});
 });
 
-router.get('/edit', function(req,res) {
+router.get('/edit', isLoggedIn, function(req,res) {
 	var courseid = req.query.courseid;
     Course.getBycourseid(courseid, function(err,doc) {
 		if(err)
@@ -54,7 +54,7 @@ router.get('/edit', function(req,res) {
 	});
 });
 
-router.post('/update', function(req, res) {
+router.post('/update', isLoggedIn, function(req, res) {
 	var course = {
 	  courseid: req.body.courseid,
 	  coursename: req.body.coursename
@@ -68,13 +68,13 @@ router.post('/update', function(req, res) {
 		});
 });
 
-router.get('/get_courseid_delete', function(req, res) {
+router.get('/get_courseid_delete', isLoggedIn, function(req, res) {
 	var default_courseid = "User Name";
 	res.render('courses/get_courseid_delete', { title: "Get course ID", courseid: default_courseid});
 });
 
 
-router.post('/delete', function(req, res) {
+router.post('/delete', isLoggedIn, function(req, res) {
 	var courseid = req.body.courseid;
 	Course.getBycourseid(courseid, function(err,doc) {
 	if(err)
@@ -94,3 +94,12 @@ router.post('/delete', function(req, res) {
 
 module.exports = router;
 
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated()&&req.user.usertype=='admin')
+        {return next();}
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}

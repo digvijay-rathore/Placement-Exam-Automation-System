@@ -14,15 +14,15 @@ var default_username = "User Name";
 
 var default_courseid = "Course Code";
 
-router.get('/home', function(req, res) {
+router.get('/home', isLoggedInAsFaculty, function(req, res) {
 	res.render('faculties/home', { title: 'Faculty Home Page', faculty: default_faculty});
 });
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
 	res.render('faculties/new', { title: 'Add New faculty', faculty: default_faculty});
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', isLoggedIn, (req, res) => {
 	var faculty = {
 	username: req.body.username,
 	password: req.body.password,
@@ -45,11 +45,11 @@ router.post('/create', (req, res) => {
 	})
 });
 
-router.get('/get_username_edit', function(req, res) {
+router.get('/get_username_edit', isLoggedIn, function(req, res) {
 	res.render('faculties/get_username_edit', { title: "Get Username", username: default_username});
 });
 
-router.get('/edit', function(req,res) {
+router.get('/edit', isLoggedIn, function(req,res) {
 	//Failure renders edit if update is incorrect
 	var username = req.query.username;
     Faculty.getByUserName(username, function(err,doc) {
@@ -65,7 +65,7 @@ router.get('/edit', function(req,res) {
 	});
 });
 
-router.post('/update', function(req,res) {
+router.post('/update', isLoggedIn, function(req,res) {
 	var faculty = {
 	  username: req.body.username,
 	  password: req.body.password,
@@ -80,11 +80,11 @@ router.post('/update', function(req,res) {
 		});
 });
 
-router.get('/get_username_delete', function(req, res) {
+router.get('/get_username_delete', isLoggedIn, function(req, res) {
 	res.render('faculties/get_username_delete', { title: "Get Username", username: default_username});
 });
 
-router.post('/delete', function(req, res) {
+router.post('/delete', isLoggedIn, function(req, res) {
 	var username = req.body.username;
 
 	Faculty.getByUserName(username, function(err,doc) {
@@ -103,12 +103,12 @@ router.post('/delete', function(req, res) {
 	})
 });
 
-router.get('/assign_form', function(req, res) {
+router.get('/assign_form', isLoggedIn, function(req, res) {
 	res.render('faculties/assign', { title: "Assign", username: default_username,
 	courseid: default_courseid});
 });
 
-router.post('/assign', function(req, res) {
+router.post('/assign', isLoggedIn, function(req, res) {
 	var username = req.body.username;
 	var course_code = req.body.courseid;
 
@@ -155,12 +155,12 @@ router.post('/assign', function(req, res) {
 });
 
 
-router.get('/unassign_form', function(req, res) {
+router.get('/unassign_form', isLoggedIn, function(req, res) {
 	res.render('faculties/unassign', { title: "unassign", username: default_username,
 	courseid: default_courseid});
 });
 
-router.post('/unassign', function(req, res) {
+router.post('/unassign', isLoggedIn, function(req, res) {
 	var username = req.body.username;
 	var course_code = req.body.courseid;
 
@@ -205,6 +205,26 @@ router.post('/unassign', function(req, res) {
 			res.redirect('/faculties/unassign_form');
 	})
 });
+
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated()&&req.user.usertype=='admin')
+        {return next();}
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
+function isLoggedInAsFaculty(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated()&&req.user.usertype=='faculty')
+        {return next();}
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
 
 module.exports = router;
 
