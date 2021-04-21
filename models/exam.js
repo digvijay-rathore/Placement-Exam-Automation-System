@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var monk = require('monk');
-var db = monk('localhost:27017/examdb');
+var db = monk('localhost:27017/placement');
 var exam_collection = db.get('exams');
 var student_collection = db.get('students');
 var response_collection = db.get('responses');
