@@ -30,6 +30,8 @@ var students = require('./controllers/student');
 var faculty = require('./controllers/faculties');
 var courses = require('./controllers/courses');
 var admin = require('./controllers/admin');
+var make_exam = require('./controllers/make_exam_controller');
+var take_exam = require('./controllers/take_exam_controller');
 var login = require('./controllers/login_controller');
 
 app.use('/', index);
@@ -37,6 +39,8 @@ app.use('/students', students);
 app.use('/faculties', faculty);
 app.use('/courses', courses);
 app.use('/admin', admin);
+app.use('/make_exam', make_exam);
+app.use('/take_exam', take_exam);
 app.use('/login', login);
 
 
