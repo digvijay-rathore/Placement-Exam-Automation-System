@@ -1,6 +1,6 @@
 const monk = require('monk');
 
-const url = 'localhost:27017/placement';
+const url = 'localhost:27017/placement'; 
 db = monk(url);
 
 students_collection = db.get('students');
@@ -29,18 +29,18 @@ module.exports = {
         students_collection.update(
            { username: username },
            { $addToSet: { course_list: { $each: [ course_code] } } }, cb);
-        },
-        
-        deregister: function(username, course_code, cb) 
-        {
-        students_collection.update(
-            {username: username},
-            { $pull: {  course_list: course_code } },cb);
-        },
-        
-        getBycourseid: function(username,course_code, cb) {
-          students_collection.findOne({username: username, course_list :course_code}, {}, cb);
-        }
+    },
+    
+    deregister: function(username, course_code, cb) 
+    {
+    students_collection.update(
+        {username: username},
+        { $pull: {  course_list: course_code } },cb);
+    },
+    
+    getBycourseid: function(username,course_code, cb) {
+        students_collection.findOne({username: username, course_list :course_code}, {}, cb);
+    }
         
         
 };

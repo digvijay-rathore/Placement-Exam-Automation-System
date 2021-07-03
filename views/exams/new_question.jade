@@ -22,7 +22,7 @@ html(lang='en')
                 strong Add Question
           .row
             .col-sm-3
-              a.btn.btn-info(href='/admin/home', role='button') Go Back!
+              a.btn.btn-info(href='/faculties/home', role='button') Go Back!
             .col-sm-6.form-box
               .form-top
                 .form-top-left
@@ -54,6 +54,8 @@ html(lang='en')
                       option(value='C') C
                       option(value='D') D
 
+                  .form-group
+                    input#form-optionD.form-optionD.form-control(type='text', name='marks', placeholder="Marks")
                   .form-group
                     label.sr-only(for='form-exam_code') Exam Code
                     input#form-exam_code.form-exam_code.form-control(type='hidden', name='exam_code', value=exam_code)

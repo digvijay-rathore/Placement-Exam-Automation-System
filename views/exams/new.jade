@@ -55,6 +55,8 @@ html(lang='en')
                   .form-group
                     label.sr-only(for='form-course_code') Course Code
                     input#form-course_code.form-course_code.form-control(type='text', name='course_code', placeholder=exam.course_code)
+                  .form-group
+                    input#form-exam_name.form-exam_name.form-control(type='text', name='cutoff_marks', placeholder="Cutoff Marks")
                   button.btn(type='submit') Create
             .col-sm-3
               a.btn.btn-info(href='/faculties/logout', role='button') Logout!

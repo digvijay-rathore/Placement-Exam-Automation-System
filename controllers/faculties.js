@@ -14,6 +14,11 @@ var default_username = "User Name";
 
 var default_courseid = "Course Code";
 
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
 router.get('/home', isLoggedInAsFaculty, function(req, res) {
 	res.render('faculties/home', { title: 'Faculty Home Page', faculty: default_faculty});
 });
@@ -137,7 +142,7 @@ router.post('/assign', isLoggedIn, function(req, res) {
 								if(err)
 									res.send("Some error occured");
 								else if(doc)
-									res.redirect('/');
+									res.redirect('/faculties/assign_form');
 
 							})	
 						}						

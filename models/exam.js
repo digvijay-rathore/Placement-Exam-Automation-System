@@ -32,7 +32,8 @@ exam_collection.update(
      optionB: question_full.optionB,
      optionC: question_full.optionC,
      optionD: question_full.optionD,
-     key: question_full.key
+     key: question_full.key,
+     marks: question_full.marks
     } ] } } }, cb);
 },
 
@@ -46,6 +47,15 @@ addResponses: function(username, exam_code, response, cb) {
       response: response
   };
   response_collection.insert(temp_response, cb);
+},
+
+addMarks: function(username, exam_code, marks){
+
+  response_collection.update(
+    { username: username,
+      exam_code: exam_code
+    },
+    { $push: {result: marks}});
 },
 
 checkResponse: function(username, exam_code, cb) {

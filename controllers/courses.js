@@ -30,7 +30,7 @@ router.post('/create', isLoggedIn, function(req, res) {
 			if(err)
 				res.send("Some error occured");
 			else
-				res.redirect('/');
+				res.redirect('/courses/new');
 		})	}
 	})
 });

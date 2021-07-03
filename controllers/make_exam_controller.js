@@ -24,7 +24,8 @@ router.post('/create', isLoggedInAsFaculty, function(req, res) {
 	  duration_hours: req.body.duration_hours,
 	  duration_minutes: req.body.duration_minutes,
 	  course_code: req.body.course_code,
-	  faculty_username: req.user.username
+	  faculty_username: req.user.username,
+	  cutoff_marks: req.body.cutoff_marks
 	};
 	var exam_code =  req.body.exam_code;
 	var course_code =  req.body.course_code;
@@ -77,7 +78,8 @@ router.get('/add_question', isLoggedInAsFaculty, function(req,res) {
 	  optionB: "option B",
 	  optionC: "option C",
 	  optionD: "option D",
-	  key: "Key"
+	  key: "Key",
+	  marks: "Marks"
 	};
 	res.render('exams/new_question', { title: 'Add New Question', question_full: default_question_full, 
 	exam_code: exam_code});
@@ -91,7 +93,8 @@ router.post('/add_question', isLoggedInAsFaculty, function(req,res) {
 	  optionB: "option B",
 	  optionC: "option C",
 	  optionD: "option D",
-	  key: "Key"
+	  key: "Key",
+	  marks: "Marks"
 	};
 	res.render('exams/new_question', { title: 'Add New Question', question_full: default_question_full, 
 	exam_code: exam_code});
@@ -108,7 +111,8 @@ router.post('/create_question', isLoggedInAsFaculty, function(req, res) {
 	  optionB: req.body.optionB,
 	  optionC: req.body.optionC,
 	  optionD: req.body.optionD,
-	  key: req.body.key
+	  key: req.body.key,
+	  marks: req.body.marks
 	};
     
     var exam_code = req.body.exam_code;

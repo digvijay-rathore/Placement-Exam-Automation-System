@@ -15,6 +15,11 @@ var default_username = "User Name";
 
 var default_courseid = "Course Code";
 
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
 router.get('/home', isLoggedInAsStudent, function(req, res) {
 	res.render('students/home', { title: 'Student Home Page', student: default_student});
 });
@@ -141,7 +146,7 @@ router.post('/register', isLoggedIn, function(req, res) {
 								if(err)
 									res.send("Some error occured");
 								else if(doc)
-									res.redirect('/');
+									res.redirect('/students/register_form');
 
 							})	
 						}						

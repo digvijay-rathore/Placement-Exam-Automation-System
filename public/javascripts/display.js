@@ -28,7 +28,7 @@ function fillQuestions() {
             //questionContent += this.question;
             questionContent += 'Question'+$i+' :';
             questionContent += this.question + '<br>';
-            questionContent += ' A.' + this.optionA + ' B.' + this.optionB + ' C.' + this.optionC + ' D.' + this.optionD + ' Key' + this.key + '<br>';
+            questionContent += ' A.' + this.optionA + ' B.' + this.optionB + ' C.' + this.optionC + ' D.' + this.optionD + ' Key' + this.key + ' Marks' + this.marks + '<br>';
 
             $i++;
         });
