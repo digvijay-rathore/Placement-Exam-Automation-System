@@ -23,6 +23,10 @@ getResponseByExamCode: function(exam_code, username, cb) {
   response_collection.findOne({exam_code: exam_code, username: username}, cb);
 },
 
+getResultsByExamCode: function(exam_code, cb) {
+  response_collection.find({exam_code: exam_code}, cb);
+},
+
 addQuestion: function(exam_code, question_full, cb) {
 exam_collection.update(
    { exam_code: exam_code },

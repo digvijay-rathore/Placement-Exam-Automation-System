@@ -5,7 +5,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Faculty Home
+    title Results
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -20,24 +20,16 @@ html(lang='en')
           .row
             .col-sm-8.col-sm-offset-2.text
               h1
-                strong Hello Faculty
+                strong &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Accepted Students in Exam #{exam_code}
           .row
             .col-sm-3
-              
-            .col-sm-6.form-box
+              a.btn.btn-info(href='../faculties/home', role='button') Go Back!
+            .col-sm-7.form-box
               .form-top
                 .form-top-left
-                  p What do you want to do?
-              .form-bottom
-                .form-group
-                  center
-                    a.btn.btn-info(href='/make_exam/new', role='button') Make Exam
-                  br
-                  center
-                    a.btn.btn-info(href='/make_exam/results', role='button') View Results
-                .form-group
-            .col-sm-3
-              a.btn.btn-info(href='/faculties/logout', role='button') Logout!
+                        each mongo_result, i in docs
+                            h3 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp #{"["} #{i+1} #{"]"} &nbsp&nbsp&nbsp #{mongo_result.username} &nbsp&nbsp&nbsp #{"-->"} &nbsp&nbsp&nbsp #{mongo_result.result} #{"marks"}
+
     // Javascript
     script(src='/stylesheets/assets/js/jquery-1.11.1.min.js')
     script(src='/stylesheets/assets/bootstrap/js/bootstrap.min.js')
@@ -45,3 +37,7 @@ html(lang='en')
     script(src='/stylesheets/assets/js/scripts.js')
     //if lt IE 10
       script(src='assets/js/placeholder.js')
+
+
+        
+

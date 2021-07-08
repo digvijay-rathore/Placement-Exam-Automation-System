@@ -145,6 +145,44 @@ router.get('/list', isLoggedInAsFaculty, function(req, res) {
     });
 });
 
+router.get('/results', isLoggedInAsFaculty, function(req, res) {
+
+    res.render('exams/results', {title: "Enter Exam Code"});
+});
+
+router.post('/results_view', isLoggedInAsFaculty, function(req, res){
+
+	var exam_code = req.body.exam_code;
+
+	Exam.getResultsByExamCode(exam_code, function(err, docs)
+	{
+		if(err)
+			res.send("Some error occured!");
+		else
+		{
+			Exam.getByExamCode(exam_code, function(err, doc)
+			{
+				if(err)
+					res.send("Some error occured!");
+				else
+				{
+					var results_arr = [];
+
+					docs.forEach(item => {
+						if(item.result[0] >= doc.cutoff_marks)
+							results_arr.push(item);
+					});
+
+					results_arr.sort((a, b) => {
+						return parseInt(b.result[0]) - parseInt(a.result[0]);
+					});
+
+					res.render('exams/view_results', {docs : results_arr, exam_code : exam_code});
+				}
+			});
+		}
+	});
+});
 
 
 module.exports = router;
