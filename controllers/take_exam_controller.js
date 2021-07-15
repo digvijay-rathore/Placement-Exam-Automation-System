@@ -21,7 +21,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                 res.send("Some error occured");
             else if(doc1)
             {
-                Student.getBycourseid(username, doc1.course_code, function(err,doc)
+                Student.getBycompanyid(username, doc1.company_code, function(err,doc)
                 {
                     if(err)
                         res.send("Some error occured");
@@ -70,7 +70,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                                 res.send("Some error occured");
                             else if(doc1)
                             {
-                                Student.getBycourseid(username, doc1.course_code, function(err,doc)
+                                Student.getBycompanyid(username, doc1.company_code, function(err,doc)
                                 {
                                     if(err)
                                         res.send("Some error occured");
@@ -124,7 +124,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                                 res.send("Some error occured");
                             else if(doc1)
                             {
-                                Student.getBycourseid(username, doc1.course_code, function(err,doc)
+                                Student.getBycompanyid(username, doc1.company_code, function(err,doc)
                                 {
                                     if(err)
                                         res.send("Some error occured");
@@ -178,7 +178,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                                 res.send("Some error occured");
                             else if(doc1)
                             {
-                                Student.getBycourseid(username, doc1.course_code, function(err,doc)
+                                Student.getBycompanyid(username, doc1.company_code, function(err,doc)
                                 {
                                     if(err)
                                         res.send("Some error occured");
@@ -232,7 +232,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                                 res.send("Some error occured");
                             else if(doc1)
                             {
-                                Student.getBycourseid(username, doc1.course_code, function(err,doc)
+                                Student.getBycompanyid(username, doc1.company_code, function(err,doc)
                                 {
                                     if(err)
                                         res.send("Some error occured");

@@ -34,15 +34,15 @@ html(lang='en')
                 form.login-form(role='form', action='update', method='post')
                   .form-group
                     label.sr-only(for='form-name') CompanyName
-                    input#form-name.form-name.form-control(type='text', name='coursename', value=course.coursename)
+                    input#form-name.form-name.form-control(type='text', name='companyname', value=company.companyname)
 
                   .form-group
-                    label.sr-only(for='form-courseid') CompanyId
-                    input#form-courseid.form-courseid.form-control(type='text', name='courseid', value=course.courseid)
+                    label.sr-only(for='form-companyid') CompanyId
+                    input#form-companyid.form-companyid.form-control(type='text', name='companyid', value=company.companyid)
 
                   .form-group
                     label.sr-only(for='form-password') Previous
-                    input#form-password.form-password.form-control(type='hidden', name='', value=course.courseid)
+                    input#form-password.form-password.form-control(type='hidden', name='', value=company.companyid)
 
                   button.btn(type='submit') Edit
             .col-sm-3

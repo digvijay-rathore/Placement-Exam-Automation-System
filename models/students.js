@@ -25,21 +25,21 @@ module.exports = {
         students_collection.remove({username: username}, cb);
     },
 
-    register: function(username, course_code, cb) {
+    register: function(username, company_code, cb) {
         students_collection.update(
            { username: username },
-           { $addToSet: { course_list: { $each: [ course_code] } } }, cb);
+           { $addToSet: { company_list: { $each: [ company_code] } } }, cb);
     },
     
-    deregister: function(username, course_code, cb) 
+    deregister: function(username, company_code, cb) 
     {
     students_collection.update(
         {username: username},
-        { $pull: {  course_list: course_code } },cb);
+        { $pull: {  company_list: company_code } },cb);
     },
     
-    getBycourseid: function(username,course_code, cb) {
-        students_collection.findOne({username: username, course_list :course_code}, {}, cb);
+    getBycompanyid: function(username,company_code, cb) {
+        students_collection.findOne({username: username, company_list :company_code}, {}, cb);
     }
         
         

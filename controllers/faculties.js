@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Faculty = require('../models/faculty');
-const Course = require('../models/course');
+const company = require('../models/company');
 
 var default_faculty = {
 	  username: "Your LDAP ID",
@@ -12,7 +12,7 @@ var default_faculty = {
 	
 var default_username = "User Name";
 
-var default_courseid = "Course Code";
+var default_companyid = "company Code";
 
 router.get('/logout', function(req, res) {
     req.logout();
@@ -110,12 +110,12 @@ router.post('/delete', isLoggedIn, function(req, res) {
 
 router.get('/assign_form', isLoggedIn, function(req, res) {
 	res.render('faculties/assign', { title: "Assign", username: default_username,
-	courseid: default_courseid});
+	companyid: default_companyid});
 });
 
 router.post('/assign', isLoggedIn, function(req, res) {
 	var username = req.body.username;
-	var course_code = req.body.courseid;
+	var company_code = req.body.companyid;
 
 	Faculty.getByUserName(username, function(err,doc) 
 	{
@@ -123,13 +123,13 @@ router.post('/assign', isLoggedIn, function(req, res) {
 			res.send("Some error occured");
 		else if(doc)
 		{
-			Course.getBycourseid(course_code, function(err,doc)
+			company.getBycompanyid(company_code, function(err,doc)
 			{
 				if(err)
 					res.send("Some error occured");
 				else if(doc)
 				{
-					Faculty.getBycourseid(username, course_code, function(err, doc) 
+					Faculty.getBycompanyid(username, company_code, function(err, doc) 
 					{
 						if(err)
 							res.send("Some error occured");
@@ -137,7 +137,7 @@ router.post('/assign', isLoggedIn, function(req, res) {
 							{res.redirect('/faculties/assign_form');}
 						else
 						{
-							Faculty.assign(username, course_code, function(err, doc)
+							Faculty.assign(username, company_code, function(err, doc)
 							{
 								if(err)
 									res.send("Some error occured");
@@ -162,12 +162,12 @@ router.post('/assign', isLoggedIn, function(req, res) {
 
 router.get('/unassign_form', isLoggedIn, function(req, res) {
 	res.render('faculties/unassign', { title: "unassign", username: default_username,
-	courseid: default_courseid});
+	companyid: default_companyid});
 });
 
 router.post('/unassign', isLoggedIn, function(req, res) {
 	var username = req.body.username;
-	var course_code = req.body.courseid;
+	var company_code = req.body.companyid;
 
 	Faculty.getByUserName(username, function(err,doc) 
 	{
@@ -175,24 +175,24 @@ router.post('/unassign', isLoggedIn, function(req, res) {
 			res.send("Some error occured");
 		else if(doc)
 		{
-			Course.getBycourseid(course_code, function(err,doc)
+			company.getBycompanyid(company_code, function(err,doc)
 			{
 				if(err)
 					res.send("Some error occured");
 				else if(doc)
 				{
-					Faculty.getBycourseid(username, course_code, function(err, doc) 
+					Faculty.getBycompanyid(username, company_code, function(err, doc) 
 					{
 						if(err)
 							res.send("Some error occured");
 						else if(doc)
 						{
-							Faculty.unassign(username, course_code, function(err, doc)
+							Faculty.unassign(username, company_code, function(err, doc)
 							{
 								if(err)
 									res.send("Some error occured");
 								else if(doc)
-									res.redirect('/');
+									res.redirect('/faculties/unassign_form');
 							})
 						}
 						else

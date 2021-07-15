@@ -32,21 +32,21 @@ remove: function(username, cb) {
   faculty_collection.remove({username: username}, cb);
 },
 
-assign: function(username, course_code, cb) {
+assign: function(username, company_code, cb) {
   faculty_collection.update(
      { username: username },
-     { $addToSet: { course_list: { $each: [ course_code] } } }, cb);
+     { $addToSet: { company_list: { $each: [ company_code] } } }, cb);
   },
   
-  unassign: function(username, course_code, cb) 
+  unassign: function(username, company_code, cb) 
   {
   faculty_collection.update(
     {username: username},
-    { $pull: {  course_list: course_code } },cb);
+    { $pull: {  company_list: company_code } },cb);
   },
   
-  getBycourseid: function(username,course_code, cb) {
-    faculty_collection.findOne({username: username, course_list :course_code}, {}, cb);
+  getBycompanyid: function(username,company_code, cb) {
+    faculty_collection.findOne({username: username, company_list :company_code}, {}, cb);
   }
   
   

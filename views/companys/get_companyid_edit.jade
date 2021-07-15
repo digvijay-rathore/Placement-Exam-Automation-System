@@ -5,7 +5,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Add Company
+    title Get CompanyID to Edit Company
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -20,24 +20,21 @@ html(lang='en')
           .row
             .col-sm-8.col-sm-offset-2.text
               h1
-                strong Add New Company
+                strong Edit Company
           .row
             .col-sm-3
               a.btn.btn-info(href='/admin/home', role='button') Go Back!
             .col-sm-6.form-box
               .form-top
                 .form-top-left
-                  h3 Add New Company
-                  p Fill the form to add a new Company:
+                  h3 Edit Company
+                  p Fill the company_id:
               .form-bottom
-                form.login-form(role='form', action='create', method='post')
+                form.login-form(role='form', action='edit', method='get')
                   .form-group
-                    label.sr-only(for='form-name') CompanyName
-                    input#form-name.form-name.form-control(type='text', name='coursename', placeholder="Company_Name")
-                  .form-group
-                    label.sr-only(for='form-username') Company_id
-                    input#form-username.form-username.form-control(type='text', name='courseid', placeholder="Company_ID")
-                  button.btn(type='submit') Add
+                    label.sr-only(for='form-companyid') comapny_id
+                    input#form-companyid.form-companyid.form-control(type='text', name='companyid', placeholder='companyid...')
+                  button.btn(type='submit') Details
             .col-sm-3
               a.btn.btn-info(href='../admin/logout', role='button') Logout!
     // Javascript
@@ -48,3 +45,7 @@ html(lang='en')
     //if lt IE 10
       script(src='assets/js/placeholder.js')
 
+
+        
+
+        

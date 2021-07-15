@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Student = require('../models/students');
-const Course = require('../models/course');
+const company = require('../models/company');
 
 var default_student = {
     username: "Your LDAP ID",
@@ -13,7 +13,7 @@ var default_student = {
 
 var default_username = "User Name";
 
-var default_courseid = "Course Code";
+var default_companyid = "company Code";
 
 router.get('/logout', function(req, res) {
     req.logout();
@@ -113,13 +113,13 @@ router.post('/delete', isLoggedIn, function(req, res) {
 
 router.get('/register_form', isLoggedIn, function(req, res) {
 	res.render('students/register', { title: "Register", username: default_username,
-	courseid: default_courseid});
+	companyid: default_companyid});
 });
 
 
 router.post('/register', isLoggedIn, function(req, res) {
 	var username = req.body.username;
-	var course_code = req.body.courseid;
+	var company_code = req.body.companyid;
 
 	Student.getByUserName(username, function(err,doc) 
 	{
@@ -127,13 +127,13 @@ router.post('/register', isLoggedIn, function(req, res) {
 			res.send("Some error occured");
 		else if(doc)
 		{
-			Course.getBycourseid(course_code, function(err,doc)
+			company.getBycompanyid(company_code, function(err,doc)
 			{
 				if(err)
 					res.send("Some error occured");
 				else if(doc)
 				{
-					Student.getBycourseid(username, course_code, function(err, doc) 
+					Student.getBycompanyid(username, company_code, function(err, doc) 
 					{
 						if(err)
 							res.send("Some error occured");
@@ -141,7 +141,7 @@ router.post('/register', isLoggedIn, function(req, res) {
 							{res.redirect('/students/register_form');}
 						else
 						{
-							Student.register(username, course_code, function(err, doc)
+							Student.register(username, company_code, function(err, doc)
 							{
 								if(err)
 									res.send("Some error occured");
@@ -165,14 +165,14 @@ router.post('/register', isLoggedIn, function(req, res) {
 
 router.get('/deregister_form', isLoggedIn, function(req, res) {
 	res.render('students/deregister', { title: "Deregister", username: default_username,
-	courseid: default_courseid});
+	companyid: default_companyid});
 });
 
 router.post('/deregister', isLoggedIn, function(req, res) {
-	// TO DO: Ensure that the student and course exists
+	// TO DO: Ensure that the student and company exists
 	// TO DO: Add failure cases
 	var username = req.body.username;
-	var course_code = req.body.courseid;
+	var company_code = req.body.companyid;
 
 	Student.getByUserName(username, function(err,doc) 
 	{
@@ -180,24 +180,24 @@ router.post('/deregister', isLoggedIn, function(req, res) {
 			res.send("Some error occured");
 		else if(doc)
 		{
-			Course.getBycourseid(course_code, function(err,doc)
+			company.getBycompanyid(company_code, function(err,doc)
 			{
 				if(err)
 					res.send("Some error occured");
 				else if(doc)
 				{
-					Student.getBycourseid(username, course_code, function(err, doc) 
+					Student.getBycompanyid(username, company_code, function(err, doc) 
 					{
 						if(err)
 							res.send("Some error occured");
 						else if(doc)
 						{
-							Student.deregister(username, course_code, function(err, doc)
+							Student.deregister(username, company_code, function(err, doc)
 							{
 								if(err)
 									res.send("Some error occured");
 								else if(doc)
-									res.redirect('/');
+									res.redirect('/students/deregister_form');
 							})
 						}
 						else

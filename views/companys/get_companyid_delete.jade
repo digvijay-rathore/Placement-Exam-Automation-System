@@ -1,11 +1,13 @@
 
+
+
 doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Get CompanyID to Edit Company
+    title Get CompanyID to Delete Company
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -20,21 +22,21 @@ html(lang='en')
           .row
             .col-sm-8.col-sm-offset-2.text
               h1
-                strong Edit Company
+                strong Delete Company
           .row
             .col-sm-3
               a.btn.btn-info(href='/admin/home', role='button') Go Back!
             .col-sm-6.form-box
               .form-top
                 .form-top-left
-                  h3 Edit Company
+                  h3 Delete Company
                   p Fill the company_id:
               .form-bottom
-                form.login-form(role='form', action='edit', method='get')
+                form.login-form(role='form', action='delete', method='post')
                   .form-group
-                    label.sr-only(for='form-courseid') comapny_id
-                    input#form-courseid.form-courseid.form-control(type='text', name='courseid', placeholder='companyid...')
-                  button.btn(type='submit') Details
+                    label.sr-only(for='form-companyid') company_id
+                    input#form-companyid.form-companyid.form-control(type='text', name='companyid', placeholder='companyid...')
+                  button.btn(type='submit') Delete
             .col-sm-3
               a.btn.btn-info(href='../admin/logout', role='button') Logout!
     // Javascript
@@ -45,6 +47,8 @@ html(lang='en')
     //if lt IE 10
       script(src='assets/js/placeholder.js')
 
+
+        
 
         
 

@@ -1,13 +1,11 @@
 
-
-
 doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Get CompanyID to Delete Company
+    title Add Company
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -22,21 +20,24 @@ html(lang='en')
           .row
             .col-sm-8.col-sm-offset-2.text
               h1
-                strong Delete Company
+                strong Add New Company
           .row
             .col-sm-3
               a.btn.btn-info(href='/admin/home', role='button') Go Back!
             .col-sm-6.form-box
               .form-top
                 .form-top-left
-                  h3 Delete Company
-                  p Fill the company_id:
+                  h3 Add New Company
+                  p Fill the form to add a new Company:
               .form-bottom
-                form.login-form(role='form', action='delete', method='post')
+                form.login-form(role='form', action='create', method='post')
                   .form-group
-                    label.sr-only(for='form-courseid') company_id
-                    input#form-courseid.form-courseid.form-control(type='text', name='courseid', placeholder='companyid...')
-                  button.btn(type='submit') Delete
+                    label.sr-only(for='form-name') CompanyName
+                    input#form-name.form-name.form-control(type='text', name='companyname', placeholder="Company_Name")
+                  .form-group
+                    label.sr-only(for='form-username') Company_id
+                    input#form-username.form-username.form-control(type='text', name='companyid', placeholder="Company_ID")
+                  button.btn(type='submit') Add
             .col-sm-3
               a.btn.btn-info(href='../admin/logout', role='button') Logout!
     // Javascript
@@ -47,9 +48,3 @@ html(lang='en')
     //if lt IE 10
       script(src='assets/js/placeholder.js')
 
-
-        
-
-        
-
-        

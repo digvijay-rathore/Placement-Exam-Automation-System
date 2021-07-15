@@ -1,7 +1,7 @@
 var express = require('express')
   , router = express.Router()
   , Exam = require('../models/exam')
-  , Course = require('../models/students')
+  , company = require('../models/students')
   , Faculty = require('../models/faculty')
 
 router.get('/new', isLoggedInAsFaculty, function(req, res) {
@@ -10,7 +10,7 @@ router.get('/new', isLoggedInAsFaculty, function(req, res) {
 	  exam_code: "Exam Code",
 	  duration_hours:1,
 	  duration_minutes:0,
-	  course_code: "Course Code",
+	  company_code: "company Code",
 	  faculty_username:"Faculty User Name"
 	};
 	res.render('exams/new', { title: 'Make New Exam', exam: default_exam});
@@ -23,12 +23,12 @@ router.post('/create', isLoggedInAsFaculty, function(req, res) {
 	  exam_code: req.body.exam_code,
 	  duration_hours: req.body.duration_hours,
 	  duration_minutes: req.body.duration_minutes,
-	  course_code: req.body.course_code,
+	  company_code: req.body.company_code,
 	  faculty_username: req.user.username,
 	  cutoff_marks: req.body.cutoff_marks
 	};
 	var exam_code =  req.body.exam_code;
-	var course_code =  req.body.course_code;
+	var company_code =  req.body.company_code;
 	var faculty_username =  req.user.username;
 	Exam.getByExamCode(exam_code, function(err,doc) 
 	{
@@ -38,7 +38,7 @@ router.post('/create', isLoggedInAsFaculty, function(req, res) {
 			{res.redirect('/make_exam/new');}
 		else
 		{
-			Faculty.getBycourseid(faculty_username, course_code, function(err, doc) 
+			Faculty.getBycompanyid(faculty_username, company_code, function(err, doc) 
 					{
 						if(err)
 							res.send("Some error occured");
