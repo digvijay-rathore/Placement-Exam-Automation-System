@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const Faculty = require('../models/faculty');
+const Hr = require('../models/hr');
 const company = require('../models/company');
 
-var default_faculty = {
+var default_hr = {
 	  username: "Your LDAP ID",
 	  password: "Password",
 	  name: "Name"
@@ -19,97 +19,97 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-router.get('/home', isLoggedInAsFaculty, function(req, res) {
-	res.render('faculties/home', { title: 'Faculty Home Page', faculty: default_faculty});
+router.get('/home', isLoggedInAshr, function(req, res) {
+	res.render('hr/home', { title: 'hr Home Page', hr: default_hr});
 });
 
 router.get('/new', isLoggedIn, (req, res) => {
-	res.render('faculties/new', { title: 'Add New faculty', faculty: default_faculty});
+	res.render('hr/new', { title: 'Add New hr', hr: default_hr});
 });
 
 router.post('/create', isLoggedIn, (req, res) => {
-	var faculty = {
+	var hr = {
 	username: req.body.username,
 	password: req.body.password,
 	name: req.body.name
 	};
 	var username = req.body.username;
 
-	Faculty.getByUserName(username, function(err,doc) {
+	Hr.getByUserName(username, function(err,doc) {
 	if(err)
 		res.send("Some error occured");
 	else if(doc)
-		res.redirect('/faculties/new');
+		res.redirect('/hr/new');
 		else{
-		Faculty.create(faculty, function(err, doc) {
+		Hr.create(hr, function(err, doc) {
 			if(err)
 				res.send("Some error occured");
 			else
-				res.redirect('/faculties/new');
+				res.redirect('/hr/new');
 		})	}
 	})
 });
 
 router.get('/get_username_edit', isLoggedIn, function(req, res) {
-	res.render('faculties/get_username_edit', { title: "Get Username", username: default_username});
+	res.render('hr/get_username_edit', { title: "Get Username", username: default_username});
 });
 
 router.get('/edit', isLoggedIn, function(req,res) {
 	//Failure renders edit if update is incorrect
 	var username = req.query.username;
-    Faculty.getByUserName(username, function(err,doc) {
+    Hr.getByUserName(username, function(err,doc) {
 		if(err)
 			res.send("Some error occured");
 		else
 		{
 			if(doc)
-			res.render('faculties/edit', {title: 'Edit faculty', faculty: doc});
+			res.render('hr/edit', {title: 'Edit hr', hr: doc});
 			else
-			res.redirect('/faculties/get_username_edit');
+			res.redirect('/hr/get_username_edit');
 		}
 	});
 });
 
 router.post('/update', isLoggedIn, function(req,res) {
-	var faculty = {
+	var hr = {
 	  username: req.body.username,
 	  password: req.body.password,
 	  name: req.body.name
 	};
 	var prevusername = req.body.username;
-	Faculty.update(prevusername, faculty, function(err, doc) {
+	Hr.update(prevusername, hr, function(err, doc) {
 			if(err)
-				res.render('faculties/edit', { title: 'Edit faculties', faculty: faculty});
+				res.render('hr/edit', { title: 'Edit hr', hr: hr});
 			else
 				res.redirect('../');
 		});
 });
 
 router.get('/get_username_delete', isLoggedIn, function(req, res) {
-	res.render('faculties/get_username_delete', { title: "Get Username", username: default_username});
+	res.render('hr/get_username_delete', { title: "Get Username", username: default_username});
 });
 
 router.post('/delete', isLoggedIn, function(req, res) {
 	var username = req.body.username;
 
-	Faculty.getByUserName(username, function(err,doc) {
+	Hr.getByUserName(username, function(err,doc) {
 	if(err)
 		res.send("Some error occured");
 	else if(doc)
 	{
-	Faculty.remove(username, function(err, doc) {
+	Hr.remove(username, function(err, doc) {
 		if(err)
 			res.send("Some error occured");
 		else
 			res.redirect('../');
 	})}
 	else
-		res.redirect('../faculties/get_username_delete');	
+		res.redirect('../hr/get_username_delete');	
 	})
 });
 
 router.get('/assign_form', isLoggedIn, function(req, res) {
-	res.render('faculties/assign', { title: "Assign", username: default_username,
+	res.render('hr/assign', { title: "Assign", username: default_username,
 	companyid: default_companyid});
 });
 
@@ -117,7 +117,7 @@ router.post('/assign', isLoggedIn, function(req, res) {
 	var username = req.body.username;
 	var company_code = req.body.companyid;
 
-	Faculty.getByUserName(username, function(err,doc) 
+	Hr.getByUserName(username, function(err,doc) 
 	{
 		if(err)
 			res.send("Some error occured");
@@ -129,39 +129,39 @@ router.post('/assign', isLoggedIn, function(req, res) {
 					res.send("Some error occured");
 				else if(doc)
 				{
-					Faculty.getBycompanyid(username, company_code, function(err, doc) 
+					Hr.getBycompanyid(username, company_code, function(err, doc) 
 					{
 						if(err)
 							res.send("Some error occured");
 						else if(doc)
-							{res.redirect('/faculties/assign_form');}
+							{res.redirect('/hr/assign_form');}
 						else
 						{
-							Faculty.assign(username, company_code, function(err, doc)
+							Hr.assign(username, company_code, function(err, doc)
 							{
 								if(err)
 									res.send("Some error occured");
 								else if(doc)
-									res.redirect('/faculties/assign_form');
+									res.redirect('/hr/assign_form');
 
 							})	
 						}						
 					})
 				}
 				else
-					res.redirect('/faculties/assign_form');
+					res.redirect('/hr/assign_form');
 					
 			})
 		}
 		else
-			res.redirect('/faculties/assign_form');
+			res.redirect('/hr/assign_form');
 		
 	})
 });
 
 
 router.get('/unassign_form', isLoggedIn, function(req, res) {
-	res.render('faculties/unassign', { title: "unassign", username: default_username,
+	res.render('hr/unassign', { title: "unassign", username: default_username,
 	companyid: default_companyid});
 });
 
@@ -169,7 +169,7 @@ router.post('/unassign', isLoggedIn, function(req, res) {
 	var username = req.body.username;
 	var company_code = req.body.companyid;
 
-	Faculty.getByUserName(username, function(err,doc) 
+	Hr.getByUserName(username, function(err,doc) 
 	{
 		if(err)
 			res.send("Some error occured");
@@ -181,33 +181,33 @@ router.post('/unassign', isLoggedIn, function(req, res) {
 					res.send("Some error occured");
 				else if(doc)
 				{
-					Faculty.getBycompanyid(username, company_code, function(err, doc) 
+					Hr.getBycompanyid(username, company_code, function(err, doc) 
 					{
 						if(err)
 							res.send("Some error occured");
 						else if(doc)
 						{
-							Faculty.unassign(username, company_code, function(err, doc)
+							Hr.unassign(username, company_code, function(err, doc)
 							{
 								if(err)
 									res.send("Some error occured");
 								else if(doc)
-									res.redirect('/faculties/unassign_form');
+									res.redirect('/hr/unassign_form');
 							})
 						}
 						else
 						{
-							res.redirect('/faculties/unassign_form');
+							res.redirect('/hr/unassign_form');
 						}
 
 					})
 				}
 				else
-					res.redirect('/faculties/unassign_form');		
+					res.redirect('/hr/unassign_form');		
 			})
 		}
 		else
-			res.redirect('/faculties/unassign_form');
+			res.redirect('/hr/unassign_form');
 	})
 });
 
@@ -221,10 +221,10 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
-function isLoggedInAsFaculty(req, res, next) {
+function isLoggedInAshr(req, res, next) {
 
     // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated()&&req.user.usertype=='faculty')
+    if (req.isAuthenticated()&&req.user.usertype=='hr')
         {return next();}
 
     // if they aren't redirect them to the home page

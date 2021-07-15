@@ -2,34 +2,34 @@ var express = require('express')
   , router = express.Router()
   , Exam = require('../models/exam')
   , company = require('../models/students')
-  , Faculty = require('../models/faculty')
+  , hr = require('../models/hr')
 
-router.get('/new', isLoggedInAsFaculty, function(req, res) {
+router.get('/new', isLoggedInAshr, function(req, res) {
 	var default_exam = {
 	  exam_name: "Exam Name",
 	  exam_code: "Exam Code",
 	  duration_hours:1,
 	  duration_minutes:0,
 	  company_code: "company Code",
-	  faculty_username:"Faculty User Name"
+	  hr_username:"hr User Name"
 	};
 	res.render('exams/new', { title: 'Make New Exam', exam: default_exam});
 });
 
 
-router.post('/create', isLoggedInAsFaculty, function(req, res) {
+router.post('/create', isLoggedInAshr, function(req, res) {
 	var exam = {
 	  exam_name: req.body.exam_name,
 	  exam_code: req.body.exam_code,
 	  duration_hours: req.body.duration_hours,
 	  duration_minutes: req.body.duration_minutes,
 	  company_code: req.body.company_code,
-	  faculty_username: req.user.username,
+	  hr_username: req.user.username,
 	  cutoff_marks: req.body.cutoff_marks
 	};
 	var exam_code =  req.body.exam_code;
 	var company_code =  req.body.company_code;
-	var faculty_username =  req.user.username;
+	var hr_username =  req.user.username;
 	Exam.getByExamCode(exam_code, function(err,doc) 
 	{
 		if(err)
@@ -38,7 +38,7 @@ router.post('/create', isLoggedInAsFaculty, function(req, res) {
 			{res.redirect('/make_exam/new');}
 		else
 		{
-			Faculty.getBycompanyid(faculty_username, company_code, function(err, doc) 
+			hr.getBycompanyid(hr_username, company_code, function(err, doc) 
 					{
 						if(err)
 							res.send("Some error occured");
@@ -61,7 +61,7 @@ router.post('/create', isLoggedInAsFaculty, function(req, res) {
 	})
 });
 
-router.get('/question_list', isLoggedInAsFaculty, function(req, res) {
+router.get('/question_list', isLoggedInAshr, function(req, res) {
     Exam.getByExamCode(req.body.exam_code, function(err,docs){
         if(err)
         res.send("some error occured");
@@ -70,7 +70,7 @@ router.get('/question_list', isLoggedInAsFaculty, function(req, res) {
     });
 });
 
-router.get('/add_question', isLoggedInAsFaculty, function(req,res) {
+router.get('/add_question', isLoggedInAshr, function(req,res) {
 	var exam_code = req.body.exam_code;
 	var default_question_full = {
 	  question: "Question",
@@ -85,7 +85,7 @@ router.get('/add_question', isLoggedInAsFaculty, function(req,res) {
 	exam_code: exam_code});
 });
 
-router.post('/add_question', isLoggedInAsFaculty, function(req,res) {
+router.post('/add_question', isLoggedInAshr, function(req,res) {
 	var exam_code = req.body.exam_code;
 	var default_question_full = {
 	  question: "Question",
@@ -103,7 +103,7 @@ router.post('/add_question', isLoggedInAsFaculty, function(req,res) {
 
 
 
-router.post('/create_question', isLoggedInAsFaculty, function(req, res) {
+router.post('/create_question', isLoggedInAshr, function(req, res) {
    
     var question_full = {
 	  question: req.body.question,
@@ -132,11 +132,11 @@ router.post('/create_question', isLoggedInAsFaculty, function(req, res) {
 });
 
 
-router.get('/submit', isLoggedInAsFaculty, function(req, res) {
+router.get('/submit', isLoggedInAshr, function(req, res) {
    res.send("exam successfully created"); 
 });
 
-router.get('/list', isLoggedInAsFaculty, function(req, res) {
+router.get('/list', isLoggedInAshr, function(req, res) {
     Exam.getByExamCode(req.query.exam_code, function(err,docs){
         if(err)
         res.send("some error occured");
@@ -145,12 +145,12 @@ router.get('/list', isLoggedInAsFaculty, function(req, res) {
     });
 });
 
-router.get('/results', isLoggedInAsFaculty, function(req, res) {
+router.get('/results', isLoggedInAshr, function(req, res) {
 
     res.render('exams/results', {title: "Enter Exam Code"});
 });
 
-router.post('/results_view', isLoggedInAsFaculty, function(req, res){
+router.post('/results_view', isLoggedInAshr, function(req, res){
 
 	var exam_code = req.body.exam_code;
 
@@ -187,10 +187,10 @@ router.post('/results_view', isLoggedInAsFaculty, function(req, res){
 
 module.exports = router;
 
-function isLoggedInAsFaculty(req, res, next) {
+function isLoggedInAshr(req, res, next) {
 
     // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated()&&req.user.usertype=='faculty')
+    if (req.isAuthenticated()&&req.user.usertype=='hr')
         {return next();}
 
     // if they aren't redirect them to the home page

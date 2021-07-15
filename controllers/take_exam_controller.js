@@ -62,7 +62,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                 Exam.getByExamCode('101', function(err, doc2){
                     if(err)
                         res.send("Some error occured!");
-                    else if(result > doc2.cutoff_marks)
+                    else if(result >= doc2.cutoff_marks)
                     {
                         Exam.getByExamCode(exam_code, function(err,doc1) 
                         {
@@ -116,7 +116,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                 Exam.getByExamCode('102', function(err, doc2){
                     if(err)
                         res.send("Some error occured!");
-                    else if(result > doc2.cutoff_marks)
+                    else if(result >= doc2.cutoff_marks)
                     {
                         Exam.getByExamCode(exam_code, function(err,doc1) 
                         {
@@ -170,7 +170,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                 Exam.getByExamCode('103', function(err, doc2){
                     if(err)
                         res.send("Some error occured!");
-                    else if(result > doc2.cutoff_marks)
+                    else if(result >= doc2.cutoff_marks)
                     {
                         Exam.getByExamCode(exam_code, function(err,doc1) 
                         {
@@ -224,7 +224,7 @@ router.post('/exam', isLoggedInAsStudent, function(req, res) {
                 Exam.getByExamCode('104', function(err, doc2){
                     if(err)
                         res.send("Some error occured!");
-                    else if(result > doc2.cutoff_marks)
+                    else if(result >= doc2.cutoff_marks)
                     {
                         Exam.getByExamCode(exam_code, function(err,doc1) 
                         {

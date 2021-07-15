@@ -1,10 +1,11 @@
+
 doctype html
 html(lang='en')
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Edit HR
+    title HR Home
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -19,29 +20,24 @@ html(lang='en')
           .row
             .col-sm-8.col-sm-offset-2.text
               h1
-                strong Edit HR
+                strong Hello HR
           .row
             .col-sm-3
-              a.btn.btn-info(href='/admin/home', role='button') Go Back!
+              
             .col-sm-6.form-box
               .form-top
                 .form-top-left
-                  h3 Edit HR
-                  p Fill the form to edit the HR details:
+                  p What do you want to do?
               .form-bottom
-                form.login-form(role='form', action='update', method='post')
-                  .form-group
-                    label.sr-only(for='form-password') Name
-                    input#form-password.form-password.form-control(type='text', name='name', value=faculty.name)
-                  .form-group
-                    label.sr-only(for='form-password') Username
-                    input#form-password.form-password.form-control(type='text', name='username', value=faculty.username)
-                  .form-group
-                    label.sr-only(for='form-password') Password
-                    input#form-password.form-password.form-control(type='password', name='password', value=faculty.password)
-                  button.btn(type='submit') Edit
+                .form-group
+                  center
+                    a.btn.btn-info(href='/make_exam/new', role='button') Make Exam
+                  br
+                  center
+                    a.btn.btn-info(href='/make_exam/results', role='button') View Results
+                .form-group
             .col-sm-3
-              a.btn.btn-info(href='../admin/logout', role='button') Logout!
+              a.btn.btn-info(href='/hr/logout', role='button') Logout!
     // Javascript
     script(src='/stylesheets/assets/js/jquery-1.11.1.min.js')
     script(src='/stylesheets/assets/bootstrap/js/bootstrap.min.js')

@@ -27,7 +27,7 @@ app.use(flash());
 
 var index = require('./controllers/index');
 var students = require('./controllers/student');
-var faculty = require('./controllers/faculties');
+var hr = require('./controllers/hr');
 var companys = require('./controllers/companys');
 var admin = require('./controllers/admin');
 var make_exam = require('./controllers/make_exam_controller');
@@ -36,7 +36,7 @@ var login = require('./controllers/login_controller');
 
 app.use('/', index);
 app.use('/students', students);
-app.use('/faculties', faculty);
+app.use('/hr', hr);
 app.use('/companys', companys);
 app.use('/admin', admin);
 app.use('/make_exam', make_exam);
