@@ -4,7 +4,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Add Faculty
+    title Add HR
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -19,15 +19,15 @@ html(lang='en')
           .row
             .col-sm-8.col-sm-offset-2.text
               h1
-                strong Unassign course
+                strong Unassign Company
           .row
             .col-sm-3
               a.btn.btn-info(href='/admin/home', role='button') Go Back!
             .col-sm-6.form-box
               .form-top
                 .form-top-left
-                  h3 Unassign a course
-                  p Fill the form to unassign a course from the faculty:
+                  h3 Unassign a Company
+                  p Fill the form to unassign a Company from the HR:
               .form-bottom
                 form.login-form(role='form', action='unassign', method='post')
                   .form-group
@@ -35,7 +35,7 @@ html(lang='en')
                     input#form-username.form-username.form-control(type='text', name='username', placeholder='Username...')
                   .form-group
                     label.sr-only(for='form-courseid') Password
-                    input#form-courseid.form-courseid.form-control(type='text', name='courseid', placeholder='CourseID...')
+                    input#form-courseid.form-courseid.form-control(type='text', name='courseid', placeholder='CompanyID...')
                   button.btn(type='submit') Unassign
             .col-sm-3
               a.btn.btn-info(href='../admin/logout', role='button') Logout!

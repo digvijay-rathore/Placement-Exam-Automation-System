@@ -5,7 +5,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Add Course
+    title Add Company
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -20,23 +20,23 @@ html(lang='en')
           .row
             .col-sm-8.col-sm-offset-2.text
               h1
-                strong Add New Course
+                strong Add New Company
           .row
             .col-sm-3
               a.btn.btn-info(href='/admin/home', role='button') Go Back!
             .col-sm-6.form-box
               .form-top
                 .form-top-left
-                  h3 Add New Course
-                  p Fill the form to add a new Course:
+                  h3 Add New Company
+                  p Fill the form to add a new Company:
               .form-bottom
                 form.login-form(role='form', action='create', method='post')
                   .form-group
-                    label.sr-only(for='form-name') CourseName
-                    input#form-name.form-name.form-control(type='text', name='coursename', placeholder=course.coursename)
+                    label.sr-only(for='form-name') CompanyName
+                    input#form-name.form-name.form-control(type='text', name='coursename', placeholder="Company_Name")
                   .form-group
-                    label.sr-only(for='form-username') CourseID
-                    input#form-username.form-username.form-control(type='text', name='courseid', placeholder=course.courseid)
+                    label.sr-only(for='form-username') Company_id
+                    input#form-username.form-username.form-control(type='text', name='courseid', placeholder="Company_ID")
                   button.btn(type='submit') Add
             .col-sm-3
               a.btn.btn-info(href='../admin/logout', role='button') Logout!

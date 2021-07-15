@@ -6,7 +6,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Edit Course
+    title Edit Company
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -21,23 +21,23 @@ html(lang='en')
           .row
             .col-sm-8.col-sm-offset-2.text
               h1
-                strong Edit Course
+                strong Edit Company
           .row
             .col-sm-3
               a.btn.btn-info(href='/admin/home', role='button') Go Back!
             .col-sm-6.form-box
               .form-top
                 .form-top-left
-                  h3 Edit Course
-                  p Fill the form to add a new Course:
+                  h3 Edit Company
+                  p Fill the form to add a new Company:
               .form-bottom
                 form.login-form(role='form', action='update', method='post')
                   .form-group
-                    label.sr-only(for='form-name') CourseName
+                    label.sr-only(for='form-name') CompanyName
                     input#form-name.form-name.form-control(type='text', name='coursename', value=course.coursename)
 
                   .form-group
-                    label.sr-only(for='form-courseid') courseid
+                    label.sr-only(for='form-courseid') CompanyId
                     input#form-courseid.form-courseid.form-control(type='text', name='courseid', value=course.courseid)
 
                   .form-group

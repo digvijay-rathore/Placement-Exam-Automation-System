@@ -4,7 +4,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Register Student to a Course
+    title Register Student to a Company
     // CSS
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/font.css')
     link(rel='stylesheet', href='/stylesheets/assets/bootstrap/css/bootstrap.min.css')
@@ -27,15 +27,15 @@ html(lang='en')
               .form-top
                 .form-top-left
                   h3 Register Student
-                  p Fill the form to register student to a course:
+                  p Fill the form to register student to a Company:
               .form-bottom
                 form.login-form(role='form', action='register', method='post')
                   .form-group
                     label.sr-only(for='form-username') Username
                     input#form-username.form-username.form-control(type='text', name='username', placeholder='Username...')
                   .form-group
-                    label.sr-only(for='form-courseid') CourseID
-                    input#form-courseid.form-courseid.form-control(type='text', name='courseid', placeholder='CourseID')
+                    label.sr-only(for='form-courseid') CompanyID
+                    input#form-courseid.form-courseid.form-control(type='text', name='courseid', placeholder='CompanyID')
                   button.btn(type='submit') Register
             .col-sm-3
               a.btn.btn-info(href='../admin/logout', role='button') Logout!
